@@ -25,7 +25,7 @@ const Home: NextPageWithLayout = () => {
         </Text>
         <Text>
           Don’t have an account?{" "}
-          <NextLink href="/sign-up" passHref>
+          <NextLink href="/create-account" passHref>
             <Link>Sign up</Link>
           </NextLink>
           .
@@ -48,7 +48,7 @@ const Home: NextPageWithLayout = () => {
             </NextLink>
           </Text>
         </HStack>
-        <Button type="submit">Sign in</Button>
+        <Button type="submit">Sign In</Button>
       </VStack>
     </>
   );

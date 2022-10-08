@@ -2,6 +2,7 @@ import { NextPageWithLayout } from "./_app";
 import {
   Button,
   FormControl,
+  FormHelperText,
   FormLabel,
   Input,
   Link,
@@ -13,39 +14,40 @@ import NextLink from "next/link";
 import { ReactElement } from "react";
 import UnauthenticatedLayout from "../components/UnauthenticatedLayout";
 
-const ResetPassword: NextPageWithLayout = () => {
+const CreateAccount: NextPageWithLayout = () => {
   return (
     <>
-      <Stack>
+      <Stack w="full">
         <Text>
-          If you’d like to reset your password, you can do so here by entering
-          your e-mail.
-        </Text>
-        <Text>
-          Otherwise, you can{" "}
+          Already have an account?{" "}
           <NextLink href="/" passHref>
-            <Link>sign in</Link>
-          </NextLink>{" "}
-          or{" "}
-          <NextLink href="/create-account" passHref>
-            <Link>create a new account</Link>
+            <Link>Sign in</Link>
           </NextLink>
           .
         </Text>
       </Stack>
       <VStack w="full" spacing="5">
         <FormControl>
+          <FormLabel>Name</FormLabel>
+          <Input type="text" autoComplete="off" />
+        </FormControl>
+        <FormControl>
           <FormLabel>Email address</FormLabel>
           <Input type="email" autoComplete="off" />
         </FormControl>
-        <Button type="submit">Send Reset Instructions</Button>
+        <FormControl>
+          <FormLabel>Password</FormLabel>
+          <Input type="password" autoComplete="off" />
+          <FormHelperText>At least 8 characters long</FormHelperText>
+        </FormControl>
+        <Button type="submit">Create Account</Button>
       </VStack>
     </>
   );
 };
 
-ResetPassword.getLayout = function getLayout(page: ReactElement) {
+CreateAccount.getLayout = function getLayout(page: ReactElement) {
   return <UnauthenticatedLayout>{page}</UnauthenticatedLayout>;
 };
 
-export default ResetPassword;
+export default CreateAccount;
