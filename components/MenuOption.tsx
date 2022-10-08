@@ -7,9 +7,9 @@ interface Props {
   icon: string;
 }
 
-const MenuOption = ({ label, icon }: Props) => {
+const MenuOption = ({ label, icon, linkTo }: Props) => {
   return (
-    <NextLink href="/" passHref>
+    <NextLink href={linkTo} passHref>
       <Link>
         <VStack spacing="0">
           <Image boxSize="30px" src={`menu/${icon}.svg`} alt={label} />
