@@ -43,7 +43,7 @@ const Home: NextPageWithLayout = () => {
         <HStack w="full" justifyContent="space-between">
           <Checkbox defaultChecked>Remember me</Checkbox>
           <Text>
-            <NextLink href="/password-reset" passHref>
+            <NextLink href="/reset-password" passHref>
               <Link>Forgot password?</Link>
             </NextLink>
           </Text>
