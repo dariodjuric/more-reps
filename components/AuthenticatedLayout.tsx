@@ -13,9 +13,10 @@ import MenuOption from "./MenuOption";
 
 interface Props {
   children: ReactNode;
+  title: string;
 }
 
-const AuthenticatedLayout = ({ children }: Props) => {
+const AuthenticatedLayout = ({ children, title }: Props) => {
   return (
     <VStack h="full">
       <Box flexGrow="1" overflowY="auto" w="100vw">
@@ -27,7 +28,7 @@ const AuthenticatedLayout = ({ children }: Props) => {
               </Link>
             </NextLink>
 
-            <Heading as="h1">Past Workouts</Heading>
+            <Heading as="h1">{title}</Heading>
           </VStack>
           <VStack>{children}</VStack>
         </Container>

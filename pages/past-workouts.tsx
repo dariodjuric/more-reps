@@ -82,7 +82,9 @@ const PastWorkouts: NextPageWithLayout = () => {
 };
 
 PastWorkouts.getLayout = function getLayout(page: ReactElement) {
-  return <AuthenticatedLayout>{page}</AuthenticatedLayout>;
+  return (
+    <AuthenticatedLayout title="Past Workouts">{page}</AuthenticatedLayout>
+  );
 };
 
 export default PastWorkouts;
