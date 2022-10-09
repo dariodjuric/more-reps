@@ -1,4 +1,4 @@
-import { NextPageWithLayout } from "./_app";
+import { NextPageWithLayout } from './_app';
 import {
   Table,
   TableContainer,
@@ -7,9 +7,9 @@ import {
   Text,
   Tr,
   VStack,
-} from "@chakra-ui/react";
-import { ReactElement } from "react";
-import AuthenticatedLayout from "../components/AuthenticatedLayout";
+} from '@chakra-ui/react';
+import { ReactElement } from 'react';
+import AuthenticatedLayout from '../components/AuthenticatedLayout';
 
 const PastWorkouts: NextPageWithLayout = () => {
   // @ts-ignore

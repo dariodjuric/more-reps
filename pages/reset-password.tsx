@@ -1,4 +1,4 @@
-import { NextPageWithLayout } from "./_app";
+import { NextPageWithLayout } from './_app';
 import {
   Button,
   FormControl,
@@ -8,10 +8,10 @@ import {
   Stack,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
-import { ReactElement } from "react";
-import UnauthenticatedLayout from "../components/UnauthenticatedLayout";
+} from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { ReactElement } from 'react';
+import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
 
 const ResetPassword: NextPageWithLayout = () => {
   return (
@@ -22,11 +22,11 @@ const ResetPassword: NextPageWithLayout = () => {
           your e-mail.
         </Text>
         <Text>
-          Otherwise, you can{" "}
+          Otherwise, you can{' '}
           <NextLink href="/" passHref>
             <Link>sign in</Link>
-          </NextLink>{" "}
-          or{" "}
+          </NextLink>{' '}
+          or{' '}
           <NextLink href="/create-account" passHref>
             <Link>create a new account</Link>
           </NextLink>

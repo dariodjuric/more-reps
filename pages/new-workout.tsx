@@ -1,9 +1,9 @@
-import { NextPageWithLayout } from "./_app";
-import { Button, Center, HStack, VStack } from "@chakra-ui/react";
-import { ReactElement, useState } from "react";
-import AuthenticatedLayout from "../components/AuthenticatedLayout";
-import ExerciseBox from "../components/ExerciseBox";
-import ExerciseSelectorDrawer from "../components/ExerciseSelectorDrawer";
+import { NextPageWithLayout } from './_app';
+import { Button, Center, HStack, VStack } from '@chakra-ui/react';
+import { ReactElement, useState } from 'react';
+import AuthenticatedLayout from '../components/AuthenticatedLayout';
+import ExerciseBox from '../components/ExerciseBox';
+import ExerciseSelectorDrawer from '../components/ExerciseSelectorDrawer';
 
 const PastWorkouts: NextPageWithLayout = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -13,7 +13,7 @@ const PastWorkouts: NextPageWithLayout = () => {
     <VStack w="full">
       <ExerciseBox
         exercise={{
-          type: { name: "Deadlift" },
+          type: { name: 'Deadlift' },
           sets: [
             { index: 1, previousWeight: 80, previousReps: 8 },
             { index: 2, previousWeight: 80, previousReps: 8 },

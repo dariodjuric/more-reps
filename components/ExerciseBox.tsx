@@ -15,8 +15,8 @@ import {
   Thead,
   Tr,
   VStack,
-} from "@chakra-ui/react";
-import { useState } from "react";
+} from '@chakra-ui/react';
+import { useState } from 'react';
 
 interface ExerciseType {
   name: string;
@@ -86,10 +86,10 @@ const ExerciseBox = ({ exercise, onClickRemove }: ExerciseBoxProps) => {
                 <Tr key={set.index}>
                   <Td>{set.index}</Td>
                   <Td>
-                    <Input placeholder={`${set.previousWeight || ""}`}></Input>
+                    <Input placeholder={`${set.previousWeight || ''}`}></Input>
                   </Td>
                   <Td>
-                    <Input placeholder={`${set.previousReps || ""}`}></Input>
+                    <Input placeholder={`${set.previousReps || ''}`}></Input>
                   </Td>
                   <Td textAlign="center">
                     <Checkbox defaultChecked={set.isCompleted}></Checkbox>

@@ -1,4 +1,4 @@
-import { NextPageWithLayout } from "./_app";
+import { NextPageWithLayout } from './_app';
 import {
   Button,
   FormControl,
@@ -9,17 +9,17 @@ import {
   Stack,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
-import { ReactElement } from "react";
-import UnauthenticatedLayout from "../components/UnauthenticatedLayout";
+} from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { ReactElement } from 'react';
+import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
 
 const CreateAccount: NextPageWithLayout = () => {
   return (
     <>
       <Stack w="full">
         <Text>
-          Already have an account?{" "}
+          Already have an account?{' '}
           <NextLink href="/" passHref>
             <Link>Sign in</Link>
           </NextLink>

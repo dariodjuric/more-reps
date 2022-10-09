@@ -1,6 +1,6 @@
-import { Container, Heading, Image, Link, VStack } from "@chakra-ui/react";
-import { ReactNode } from "react";
-import NextLink from "next/link";
+import { Container, Heading, Image, Link, VStack } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import NextLink from 'next/link';
 
 interface Props {
   children: ReactNode;

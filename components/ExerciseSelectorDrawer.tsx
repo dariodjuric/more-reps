@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Input,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface Props {
   isShown: boolean;

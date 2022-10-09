@@ -6,10 +6,10 @@ import {
   Image,
   Link,
   VStack,
-} from "@chakra-ui/react";
-import { ReactNode } from "react";
-import NextLink from "next/link";
-import MenuOption from "./MenuOption";
+} from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import NextLink from 'next/link';
+import MenuOption from './MenuOption';
 
 interface Props {
   children: ReactNode;

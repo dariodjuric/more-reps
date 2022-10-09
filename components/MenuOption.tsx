@@ -1,5 +1,5 @@
-import { VStack, Text, Link, Image } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { VStack, Text, Link, Image } from '@chakra-ui/react';
+import NextLink from 'next/link';
 
 interface Props {
   label: string;
