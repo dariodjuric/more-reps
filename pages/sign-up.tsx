@@ -14,7 +14,7 @@ import NextLink from 'next/link';
 import { ReactElement } from 'react';
 import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
 
-const CreateAccount: NextPageWithLayout = () => {
+const SignUp: NextPageWithLayout = () => {
   return (
     <>
       <Stack w="full">
@@ -46,8 +46,8 @@ const CreateAccount: NextPageWithLayout = () => {
   );
 };
 
-CreateAccount.getLayout = function getLayout(page: ReactElement) {
+SignUp.getLayout = function getLayout(page: ReactElement) {
   return <UnauthenticatedLayout>{page}</UnauthenticatedLayout>;
 };
 
-export default CreateAccount;
+export default SignUp;

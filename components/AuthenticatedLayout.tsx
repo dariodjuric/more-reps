@@ -10,6 +10,7 @@ import {
 import { ReactNode } from 'react';
 import NextLink from 'next/link';
 import MenuOption from './MenuOption';
+import { useUser } from '../lib/useUser';
 
 interface Props {
   children: ReactNode;
@@ -17,6 +18,11 @@ interface Props {
 }
 
 const AuthenticatedLayout = ({ children, title }: Props) => {
+  const { userStatus } = useUser({
+    redirectTo: '/sign-in',
+    redirectIfLoggedIn: false,
+  });
+
   return (
     <VStack h="full">
       <Box flexGrow="1" overflowY="auto" w="100vw">
@@ -53,7 +59,11 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
           linkTo="/new-workout"
           icon="new-workout"
         />
-        <MenuOption label="My Profile" linkTo="/my-profile" icon="my-profile" />
+        <MenuOption
+          label="My MyProfile"
+          linkTo="/my-profile"
+          icon="my-profile"
+        />
       </HStack>
     </VStack>
   );
