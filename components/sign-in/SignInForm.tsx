@@ -65,7 +65,7 @@ const SignInForm = () => {
         <HStack w="full" justifyContent="space-between">
           <Checkbox defaultChecked>Remember me</Checkbox>
           <Text>
-            <NextLink href="/reset-password" passHref>
+            <NextLink legacyBehavior href="/reset-password" passHref>
               <Link>Forgot password?</Link>
             </NextLink>
           </Text>

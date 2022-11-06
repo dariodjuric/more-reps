@@ -28,7 +28,7 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
       <Box flexGrow="1" overflowY="auto" w="100vw">
         <Container>
           <VStack w="full" mb="25">
-            <NextLink href="/" passHref>
+            <NextLink legacyBehavior href="/" passHref>
               <Link>
                 <Image boxSize="90" src="more-reps-logo.svg" alt="More Reps" />
               </Link>
