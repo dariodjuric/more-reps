@@ -10,7 +10,8 @@ import {
 import { ReactNode } from 'react';
 import NextLink from 'next/link';
 import MenuOption from './MenuOption';
-import { useUser } from '../lib/useUser';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 interface Props {
   children: ReactNode;
@@ -18,10 +19,18 @@ interface Props {
 }
 
 const AuthenticatedLayout = ({ children, title }: Props) => {
-  const { userStatus } = useUser({
-    redirectTo: '/sign-in',
-    redirectIfLoggedIn: false,
+  const router = useRouter();
+
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push('/signin');
+    },
   });
+
+  if (status === 'loading') {
+    return null;
+  }
 
   return (
     <VStack h="full">
@@ -48,7 +57,7 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
         borderTop="1px"
         borderColor="gray.200"
       >
-        <MenuOption label="Home" linkTo="/past-workouts" icon="home" />
+        <MenuOption label="Home" linkTo="/" icon="home" />
         <MenuOption
           label="My Templates"
           linkTo="/past-templates"
@@ -59,11 +68,7 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
           linkTo="/new-workout"
           icon="new-workout"
         />
-        <MenuOption
-          label="My MyProfile"
-          linkTo="/my-profile"
-          icon="my-profile"
-        />
+        <MenuOption label="My Profile" linkTo="/my-profile" icon="my-profile" />
       </HStack>
     </VStack>
   );

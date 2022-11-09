@@ -5,7 +5,7 @@ import { ReactElement } from 'react';
 import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
 import SignInForm from '../components/sign-in/SignInForm';
 
-const Home: NextPageWithLayout = () => {
+const SignIn: NextPageWithLayout = () => {
   return (
     <>
       <Stack>
@@ -15,7 +15,7 @@ const Home: NextPageWithLayout = () => {
         </Text>
         <Text>
           Don’t have an account?{' '}
-          <NextLink href="/sign-up" passHref>
+          <NextLink legacyBehavior href="/sign-up" passHref>
             <Link>Sign up</Link>
           </NextLink>
           .
@@ -28,8 +28,8 @@ const Home: NextPageWithLayout = () => {
   );
 };
 
-Home.getLayout = function getLayout(page: ReactElement) {
+SignIn.getLayout = function getLayout(page: ReactElement) {
   return <UnauthenticatedLayout>{page}</UnauthenticatedLayout>;
 };
 
-export default Home;
+export default SignIn;

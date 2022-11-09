@@ -4,6 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Head from 'next/head';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
+import { SessionProvider } from 'next-auth/react';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -13,16 +14,21 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
     <ChakraProvider>
-      <Head>
-        <title>More Reps</title>
-      </Head>
-      {getLayout(<Component {...pageProps} />)}
+      <SessionProvider session={session}>
+        <Head>
+          <title>More Reps</title>
+        </Head>
+        {getLayout(<Component {...pageProps} />)}
+      </SessionProvider>
     </ChakraProvider>
   );
 }

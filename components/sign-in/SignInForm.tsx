@@ -11,37 +11,20 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { FormEvent, useState } from 'react';
-import fetchJson, { FetchError } from '../../lib/fetchJson';
-import { useUser } from '../../lib/useUser';
-import { LoginRequest } from '../../pages/api/login';
+import { signIn } from 'next-auth/react';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const { mutateUser } = useUser({
-    redirectTo: '/past-workouts',
-    redirectIfLoggedIn: true,
-  });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      mutateUser(
-        await fetchJson('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password } as LoginRequest),
-        })
-      );
+      await signIn('credentials', { email, password });
     } catch (error) {
-      if (error instanceof FetchError) {
-        console.error(error);
-        setErrorMessage(error.data.message);
-      } else {
-        console.error('An unexpected error happened:', error);
-      }
+      console.error(error);
     }
   };
 
@@ -52,6 +35,7 @@ const SignInForm = () => {
           <FormLabel>Email address</FormLabel>
           <Input
             type="email"
+            name="username"
             onChange={(e) => setEmail(e.currentTarget.value)}
           />
         </FormControl>
@@ -59,6 +43,7 @@ const SignInForm = () => {
           <FormLabel>Password</FormLabel>
           <Input
             type="password"
+            name="password"
             onChange={(e) => setPassword(e.currentTarget.value)}
           />
         </FormControl>
