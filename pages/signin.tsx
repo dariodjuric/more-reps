@@ -15,7 +15,7 @@ const SignIn: NextPageWithLayout = () => {
         </Text>
         <Text>
           Don’t have an account?{' '}
-          <NextLink legacyBehavior href="/sign-up" passHref>
+          <NextLink legacyBehavior href="/signup" passHref>
             <Link>Sign up</Link>
           </NextLink>
           .

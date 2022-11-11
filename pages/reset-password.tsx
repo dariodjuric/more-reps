@@ -27,7 +27,7 @@ const ResetPassword: NextPageWithLayout = () => {
             <Link>sign in</Link>
           </NextLink>{' '}
           or{' '}
-          <NextLink href="/sign-up" passHref>
+          <NextLink href="/signup" passHref>
             <Link>create a new account</Link>
           </NextLink>
           .
