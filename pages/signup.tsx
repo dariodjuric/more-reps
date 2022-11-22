@@ -42,7 +42,7 @@ const SignUp: NextPageWithLayout = () => {
       <Stack w="full">
         <Text>
           Already have an account?{' '}
-          <NextLink href="/" passHref>
+          <NextLink legacyBehavior href="/" passHref>
             <Link>Sign in</Link>
           </NextLink>
           .

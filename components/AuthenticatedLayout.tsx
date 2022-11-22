@@ -39,7 +39,7 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
           <VStack w="full" mb="25">
             <NextLink legacyBehavior href="/" passHref>
               <Link>
-                <Image boxSize="90" src="more-reps-logo.svg" alt="More Reps" />
+                <Image boxSize="90" src="/more-reps-logo.svg" alt="More Reps" />
               </Link>
             </NextLink>
 

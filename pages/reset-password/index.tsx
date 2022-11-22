@@ -1,4 +1,4 @@
-import { NextPageWithLayout } from './_app';
+import { NextPageWithLayout } from '../_app';
 import {
   Button,
   FormControl,
@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { ReactElement } from 'react';
-import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
+import UnauthenticatedLayout from '../../components/UnauthenticatedLayout';
 
 const ResetPassword: NextPageWithLayout = () => {
   return (
@@ -23,11 +23,11 @@ const ResetPassword: NextPageWithLayout = () => {
         </Text>
         <Text>
           Otherwise, you can{' '}
-          <NextLink href="/" passHref>
+          <NextLink legacyBehavior href="/" passHref>
             <Link>sign in</Link>
           </NextLink>{' '}
           or{' '}
-          <NextLink href="/signup" passHref>
+          <NextLink legacyBehavior href="/signup" passHref>
             <Link>create a new account</Link>
           </NextLink>
           .

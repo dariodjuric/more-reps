@@ -13,7 +13,7 @@ const UnauthenticatedLayout = ({ children }: Props) => {
         <VStack w="full">
           <NextLink legacyBehavior href="/" passHref>
             <Link>
-              <Image boxSize="150" src="more-reps-logo.svg" alt="More Reps" />
+              <Image boxSize="150" src="/more-reps-logo.svg" alt="More Reps" />
             </Link>
           </NextLink>
 
