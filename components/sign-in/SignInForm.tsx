@@ -1,6 +1,5 @@
 import {
   Button,
-  Checkbox,
   FormControl,
   FormLabel,
   HStack,
@@ -47,8 +46,7 @@ const SignInForm = () => {
             onChange={(e) => setPassword(e.currentTarget.value)}
           />
         </FormControl>
-        <HStack w="full" justifyContent="space-between">
-          <Checkbox defaultChecked>Remember me</Checkbox>
+        <HStack w="full" justifyContent="end">
           <Text>
             <NextLink legacyBehavior href="/reset-password" passHref>
               <Link>Forgot password?</Link>
