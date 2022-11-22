@@ -1,8 +1,7 @@
 version: "3.9"
 services:
   db:
-    image: postgres:13.6
-    command: postgres -c stats_temp_directory=/tmp
+    image: postgres:15.1
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:

@@ -3,13 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "start:all": "concurrently --raw 'npm run start:db' 'npm run dev'",
+    "dev": "concurrently --raw 'npm run start:db' 'next dev'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "start:db": "docker-compose up db",
-    "stop:db": "docker-compose stop db"
+    "start:db": "docker-compose up",
+    "stop:db": "docker-compose stop"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.3.7",
