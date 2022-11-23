@@ -11,26 +11,29 @@ import {
 import NextLink from 'next/link';
 import { FormEvent, useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { ErrorMessage } from '../ErrorMessage';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       await signIn('credentials', { email, password });
+      setIsError(false);
     } catch (error) {
       console.error(error);
+      setIsError(true);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <VStack w="full">
-        <FormControl>
+        <FormControl isRequired>
           <FormLabel>Email address</FormLabel>
           <Input
             type="email"
@@ -38,7 +41,7 @@ const SignInForm = () => {
             onChange={(e) => setEmail(e.currentTarget.value)}
           />
         </FormControl>
-        <FormControl>
+        <FormControl isRequired>
           <FormLabel>Password</FormLabel>
           <Input
             type="password"
@@ -48,12 +51,15 @@ const SignInForm = () => {
         </FormControl>
         <HStack w="full" justifyContent="end">
           <Text>
-            <NextLink legacyBehavior href="/reset-password" passHref>
+            <NextLink legacyBehavior href="/password-reset" passHref>
               <Link>Forgot password?</Link>
             </NextLink>
           </Text>
         </HStack>
-        <Button type="submit">Sign In</Button>
+        <Button type="submit">Sign in</Button>
+        {isError && (
+          <ErrorMessage>There was a problem logging in.</ErrorMessage>
+        )}
       </VStack>
     </form>
   );

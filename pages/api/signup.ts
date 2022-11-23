@@ -2,34 +2,28 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
 import prisma from '../../lib/prisma';
+import { httpResponse } from '../../lib/http-responses';
+import { BCRYPT_SALT } from '../../lib/environment';
 
 const RequestSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
+  password: z.string(),
 });
 
-interface SignUpResponse {
-  message?: string;
-  user?: {
-    id: number;
-    email: string;
-  };
-}
-
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse<SignUpResponse>
-) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
-    return res.status(400).json({ message: 'Must be POST request' });
+    return httpResponse(res, 405);
   }
   const bodyParse = RequestSchema.safeParse(req.body);
   if (!bodyParse.success) {
-    return res.status(400).json({ message: 'Invalid email or password' });
+    return httpResponse(res, 400);
   }
 
   try {
-    const passwordHash = await bcrypt.hash(bodyParse.data.password, 0);
+    const passwordHash = await bcrypt.hash(
+      bodyParse.data.password,
+      BCRYPT_SALT
+    );
     const user = await prisma.user.create({
       data: {
         email: bodyParse.data.email,
@@ -50,7 +44,7 @@ const handler = async (
       message = 'User already exists';
     }
     console.error(e);
-    return res.status(500).json({ message });
+    return httpResponse(res, 500, message);
   }
 };
 

@@ -14,62 +14,76 @@ import NextLink from 'next/link';
 import { FormEvent, ReactElement, useState } from 'react';
 import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
 import { useRouter } from 'next/router';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 const SignUp: NextPageWithLayout = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await fetch('/api/signup', {
+      const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-      await router.push('/signin');
+      if (response.ok) {
+        await router.push('/signin');
+        setIsError(false);
+      } else {
+        setIsError(true);
+      }
     } catch (e) {
       console.error(e);
+      setIsError(true);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Stack w="full">
-        <Text>
-          Already have an account?{' '}
-          <NextLink legacyBehavior href="/" passHref>
-            <Link>Sign in</Link>
-          </NextLink>
-          .
-        </Text>
-      </Stack>
+    <Stack w="full" spacing={6}>
+      <Text>
+        You can create a new More Reps account by filling out the following
+        form. Already have an account?{' '}
+        <NextLink legacyBehavior href="/" passHref>
+          <Link>Sign in</Link>
+        </NextLink>
+        .
+      </Text>
 
-      <VStack w="full" spacing="5">
-        <FormControl>
-          <FormLabel>Email address</FormLabel>
-          <Input
-            type="email"
-            autoComplete="off"
-            onChange={(e) => setEmail(e.currentTarget.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel>Password</FormLabel>
-          <Input
-            type="password"
-            autoComplete="off"
-            onChange={(e) => setPassword(e.currentTarget.value)}
-          />
-          <FormHelperText>At least 8 characters long</FormHelperText>
-        </FormControl>
-        <Button type="submit">Create Account</Button>
-      </VStack>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <VStack w="full" spacing="5">
+          <FormControl isRequired>
+            <FormLabel>Email address</FormLabel>
+            <Input
+              type="email"
+              autoComplete="off"
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel>Password</FormLabel>
+            <Input
+              type="password"
+              autoComplete="off"
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
+            <FormHelperText>At least 8 characters long</FormHelperText>
+          </FormControl>
+          <Button type="submit">Create account</Button>
+          {isError && (
+            <ErrorMessage>
+              There was a problem creating your account.
+            </ErrorMessage>
+          )}
+        </VStack>
+      </form>
+    </Stack>
   );
 };
 
