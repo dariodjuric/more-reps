@@ -1,15 +1,20 @@
 import { NextPageWithLayout } from './_app';
-import { Link } from '@chakra-ui/react';
+import { Button, Text, VStack } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import AuthenticatedLayout from '../components/AuthenticatedLayout';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 const MyProfile: NextPageWithLayout = () => {
+  const { data } = useSession();
+
   // @ts-ignore
   return (
-    <>
-      <Link onClick={() => signOut({ redirect: true })}>Log out</Link>
-    </>
+    <VStack spacing="4">
+      <Text>
+        You are currently logged in as <Text as="b">{data?.user?.email}</Text>.
+      </Text>
+      <Button onClick={() => signOut({ redirect: true })}>Log out</Button>
+    </VStack>
   );
 };
 
