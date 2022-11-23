@@ -68,7 +68,9 @@ const ExerciseBox = ({ exercise, onClickRemove }: ExerciseBoxProps) => {
     <VStack>
       <HStack w="full" justifyContent="space-between">
         <Text as="b">{exercise.type.name}</Text>
-        <Button onClick={onClickRemove}>Remove</Button>
+        <Button onClick={onClickRemove} colorScheme="red" variant="ghost">
+          Remove exercise
+        </Button>
       </HStack>
       <Box w="full" border="1px" borderColor="gray.200" borderRadius="12px">
         <TableContainer>
@@ -101,7 +103,9 @@ const ExerciseBox = ({ exercise, onClickRemove }: ExerciseBoxProps) => {
               <Tr>
                 <Th colSpan={4}>
                   <Center>
-                    <Button onClick={handleAddNewSet}>Add Set</Button>
+                    <Button onClick={handleAddNewSet} variant="outline">
+                      Add set
+                    </Button>
                   </Center>
                 </Th>
               </Tr>

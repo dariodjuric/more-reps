@@ -19,7 +19,7 @@ const MyProfile: NextPageWithLayout = () => {
 };
 
 MyProfile.getLayout = function getLayout(page: ReactElement) {
-  return <AuthenticatedLayout title="My Profile">{page}</AuthenticatedLayout>;
+  return <AuthenticatedLayout title="My profile">{page}</AuthenticatedLayout>;
 };
 
 export default MyProfile;

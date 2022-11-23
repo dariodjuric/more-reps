@@ -59,16 +59,16 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
       >
         <MenuOption label="Home" linkTo="/" icon="home" />
         {/*<MenuOption*/}
-        {/*  label="My Templates"*/}
+        {/*  label="My templates"*/}
         {/*  linkTo="/past-templates"*/}
         {/*  icon="templates"*/}
         {/*/>*/}
         <MenuOption
-          label="New Workout"
+          label="New workout"
           linkTo="/new-workout"
           icon="new-workout"
         />
-        <MenuOption label="My Profile" linkTo="/my-profile" icon="my-profile" />
+        <MenuOption label="My profile" linkTo="/my-profile" icon="my-profile" />
       </HStack>
     </VStack>
   );

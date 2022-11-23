@@ -83,7 +83,7 @@ const PastWorkouts: NextPageWithLayout = () => {
 
 PastWorkouts.getLayout = function getLayout(page: ReactElement) {
   return (
-    <AuthenticatedLayout title="Past Workouts">{page}</AuthenticatedLayout>
+    <AuthenticatedLayout title="Past workouts">{page}</AuthenticatedLayout>
   );
 };
 

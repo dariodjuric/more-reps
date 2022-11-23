@@ -23,19 +23,21 @@ const PastWorkouts: NextPageWithLayout = () => {
       ></ExerciseBox>
       <Center>
         <ExerciseSelectorDrawer isShown={isDrawerOpen}></ExerciseSelectorDrawer>
-        <Button onClick={() => setIsDrawerOpen(true)}>Add Exercise</Button>
+        <Button onClick={() => setIsDrawerOpen(true)}>Add exercise</Button>
       </Center>
 
       <HStack pt="18" w="full" justifyContent="space-between">
-        <Button>Cancel Workout</Button>
-        <Button>Save Workout</Button>
+        <Button colorScheme="red" variant="ghost">
+          Remove workout
+        </Button>
+        <Button>Save workout</Button>
       </HStack>
     </VStack>
   );
 };
 
 PastWorkouts.getLayout = function getLayout(page: ReactElement) {
-  return <AuthenticatedLayout title="New Workout">{page}</AuthenticatedLayout>;
+  return <AuthenticatedLayout title="New workout">{page}</AuthenticatedLayout>;
 };
 
 export default PastWorkouts;
