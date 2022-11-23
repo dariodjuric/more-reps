@@ -58,11 +58,11 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
         borderColor="gray.200"
       >
         <MenuOption label="Home" linkTo="/" icon="home" />
-        <MenuOption
-          label="My Templates"
-          linkTo="/past-templates"
-          icon="templates"
-        />
+        {/*<MenuOption*/}
+        {/*  label="My Templates"*/}
+        {/*  linkTo="/past-templates"*/}
+        {/*  icon="templates"*/}
+        {/*/>*/}
         <MenuOption
           label="New Workout"
           linkTo="/new-workout"
