@@ -22,7 +22,11 @@ const PastWorkouts: NextPageWithLayout = () => {
         onClickRemove={() => {}}
       ></ExerciseBox>
       <Center>
-        <ExerciseSelectorDrawer isShown={isDrawerOpen}></ExerciseSelectorDrawer>
+        <ExerciseSelectorDrawer
+          isShown={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+          onSelect={() => setIsDrawerOpen(false)}
+        ></ExerciseSelectorDrawer>
         <Button onClick={() => setIsDrawerOpen(true)}>Add exercise</Button>
       </Center>
 

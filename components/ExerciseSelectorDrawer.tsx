@@ -2,35 +2,54 @@ import {
   Button,
   Drawer,
   DrawerBody,
-  DrawerCloseButton,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Input,
+  Stack,
+  StackDivider,
+  Text,
 } from '@chakra-ui/react';
+import useSWR from 'swr';
+import { fetcher } from '../lib/fetcher';
+import { ExerciseTypesResponse } from '../pages/api/exercise-types';
+import { SimpleLink } from './SimpleLink';
 
 interface Props {
   isShown: boolean;
+  onClose: () => void;
+  onSelect: (exerciseTypeId: number) => void;
 }
 
-const ExerciseSelectorDrawer = ({ isShown }: Props) => {
+const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
+  const { data } = useSWR<ExerciseTypesResponse>(
+    '/api/exercise-types',
+    fetcher
+  );
+
   return (
-    <Drawer isOpen={isShown} onClose={() => {}} placement="right">
+    <Drawer isOpen={isShown} onClose={() => onClose()} placement="right">
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton />
-        <DrawerHeader>Create your account</DrawerHeader>
+        <DrawerHeader>Select your exercise</DrawerHeader>
 
         <DrawerBody>
-          <Input placeholder="Type here..." />
+          {!data && <Text>Loading...</Text>}
+          {data && (
+            <Stack divider={<StackDivider />} spacing="4">
+              {data.types.map(({ id, name }) => (
+                <SimpleLink key={id} color="black" onClick={() => onSelect(id)}>
+                  {name}
+                </SimpleLink>
+              ))}
+            </Stack>
+          )}
         </DrawerBody>
 
         <DrawerFooter>
-          <Button variant="outline" mr={3}>
-            Cancel
+          <Button variant="outline" onClick={() => onClose()}>
+            Close
           </Button>
-          <Button colorScheme="blue">Save</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

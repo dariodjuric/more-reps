@@ -5,24 +5,27 @@ export const httpResponse = (
   statusCode: number,
   message?: string
 ) => {
-  let messageForResponse = message;
+  let responseMessage = message;
 
-  if (!messageForResponse) {
+  if (!responseMessage) {
     switch (statusCode) {
       case 200:
-        messageForResponse = 'Request processed successfully';
+        responseMessage = 'Request processed successfully';
         break;
       case 400:
-        messageForResponse = 'Invalid request';
+        responseMessage = 'Invalid request';
+        break;
+      case 401:
+        responseMessage = 'Unauthorized';
         break;
       case 405:
-        messageForResponse = 'Invalid method';
+        responseMessage = 'Invalid method';
         break;
       case 500:
-        messageForResponse = 'Internal server error';
+        responseMessage = 'Internal server error';
         break;
     }
   }
 
-  return res.status(statusCode).json({ message: messageForResponse });
+  return res.status(statusCode).json({ message: responseMessage });
 };
