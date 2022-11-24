@@ -4,14 +4,13 @@ import {
   FormLabel,
   HStack,
   Input,
-  Link,
   Text,
   VStack,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
 import { FormEvent, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { ErrorMessage } from '../ErrorMessage';
+import { TextLink } from '../TextLink';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -51,9 +50,7 @@ const SignInForm = () => {
         </FormControl>
         <HStack w="full" justifyContent="end">
           <Text>
-            <NextLink legacyBehavior href="/password-reset" passHref>
-              <Link>Forgot password?</Link>
-            </NextLink>
+            <TextLink href="/password-reset">Forgot password?</TextLink>
           </Text>
         </HStack>
         <Button type="submit">Sign in</Button>

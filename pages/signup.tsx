@@ -5,16 +5,15 @@ import {
   FormHelperText,
   FormLabel,
   Input,
-  Link,
   Stack,
   Text,
   VStack,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
 import { FormEvent, ReactElement, useState } from 'react';
 import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
 import { useRouter } from 'next/router';
 import { ErrorMessage } from '../components/ErrorMessage';
+import { TextLink } from '../components/TextLink';
 
 const SignUp: NextPageWithLayout = () => {
   const [email, setEmail] = useState('');
@@ -49,11 +48,7 @@ const SignUp: NextPageWithLayout = () => {
     <Stack w="full" spacing={6}>
       <Text>
         You can create a new More Reps account by filling out the following
-        form. Already have an account?{' '}
-        <NextLink legacyBehavior href="/" passHref>
-          <Link>Sign in</Link>
-        </NextLink>
-        .
+        form. Already have an account? <TextLink href="/">Sign in</TextLink>.
       </Text>
 
       <form onSubmit={handleSubmit}>

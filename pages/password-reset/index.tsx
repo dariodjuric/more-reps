@@ -10,10 +10,10 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
 import { FormEvent, ReactElement, useState } from 'react';
 import UnauthenticatedLayout from '../../components/UnauthenticatedLayout';
 import { ErrorMessage } from '../../components/ErrorMessage';
+import { TextLink } from '../../components/TextLink';
 
 const ResetPassword: NextPageWithLayout = () => {
   const [email, setEmail] = useState('');
@@ -65,15 +65,8 @@ const ResetPassword: NextPageWithLayout = () => {
           link to reset your password.
         </Text>
         <Text>
-          Otherwise, you can{' '}
-          <NextLink legacyBehavior href="/" passHref>
-            <Link>sign in</Link>
-          </NextLink>{' '}
-          or{' '}
-          <NextLink legacyBehavior href="/signup" passHref>
-            <Link>create a new account</Link>
-          </NextLink>
-          .
+          Otherwise, you can <TextLink href="/">sign in</TextLink> or{' '}
+          <TextLink href="/signup">create a new account</TextLink>.
         </Text>
       </Stack>
       <Box w="full">

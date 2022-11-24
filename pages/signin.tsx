@@ -1,9 +1,9 @@
-import { Box, Link, Stack, Text } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Box, Stack, Text } from '@chakra-ui/react';
 import { NextPageWithLayout } from './_app';
 import { ReactElement } from 'react';
 import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
 import SignInForm from '../components/sign-in/SignInForm';
+import { TextLink } from '../components/TextLink';
 
 const SignIn: NextPageWithLayout = () => {
   return (
@@ -14,11 +14,7 @@ const SignIn: NextPageWithLayout = () => {
           and get that extra rep in your workouts. It is completely free to use.
         </Text>
         <Text>
-          Don’t have an account?{' '}
-          <NextLink legacyBehavior href="/signup" passHref>
-            <Link>Sign up</Link>
-          </NextLink>
-          .
+          Don’t have an account? <TextLink href="/signup">Sign up</TextLink>.
         </Text>
       </Stack>
       <Box w="full">

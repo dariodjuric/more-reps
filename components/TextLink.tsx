@@ -8,7 +8,7 @@ interface Props {
   color?: string;
 }
 
-export const SimpleLink = ({ children, href, onClick, color }: Props) => (
+export const TextLink = ({ children, href, onClick, color }: Props) => (
   <NextLink href={href || ''} legacyBehavior passHref>
     <Link color={color || 'teal.500'} onClick={onClick}>
       {children}

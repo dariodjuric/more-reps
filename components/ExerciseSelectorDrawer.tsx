@@ -13,7 +13,7 @@ import {
 import useSWR from 'swr';
 import { fetcher } from '../lib/fetcher';
 import { ExerciseTypesResponse } from '../pages/api/exercise-types';
-import { SimpleLink } from './SimpleLink';
+import { TextLink } from './TextLink';
 
 interface Props {
   isShown: boolean;
@@ -38,9 +38,9 @@ const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
           {data && (
             <Stack divider={<StackDivider />} spacing="4">
               {data.types.map(({ id, name }) => (
-                <SimpleLink key={id} color="black" onClick={() => onSelect(id)}>
+                <TextLink key={id} color="black" onClick={() => onSelect(id)}>
                   {name}
-                </SimpleLink>
+                </TextLink>
               ))}
             </Stack>
           )}
