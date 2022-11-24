@@ -12,7 +12,7 @@ const MenuOption = ({ label, icon, linkTo }: Props) => {
     <NextLink legacyBehavior href={linkTo} passHref>
       <Link>
         <VStack spacing="0">
-          <Image boxSize="30px" src={`menu/${icon}.svg`} alt={label} />
+          <Image boxSize="30px" src={`/menu/${icon}.svg`} alt={label} />
           <Text fontSize="xs">{label}</Text>
         </VStack>
       </Link>
