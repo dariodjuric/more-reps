@@ -26,11 +26,10 @@ const PastWorkouts: NextPageWithLayout = () => {
         <Button onClick={() => setIsDrawerOpen(true)}>Add exercise</Button>
       </Center>
 
-      <HStack pt="18" w="full" justifyContent="space-between">
+      <HStack pt="12" w="full" justifyContent="center">
         <Button colorScheme="red" variant="ghost">
           Remove workout
         </Button>
-        <Button>Save workout</Button>
       </HStack>
     </VStack>
   );

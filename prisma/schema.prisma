@@ -16,6 +16,7 @@ model User {
   password           String
   registeredAt       DateTime            @default(now())
   passwordResetToken PasswordResetToken?
+  Workout            Workout[]
 }
 
 model PasswordResetToken {
@@ -24,4 +25,36 @@ model PasswordResetToken {
   createdAt DateTime @default(now())
   userId    Int      @unique
   user      User     @relation(fields: [userId], references: [id])
+}
+
+model ExerciseType {
+  id       Int        @id @default(autoincrement())
+  name     String
+  Exercise Exercise[]
+}
+
+model Workout {
+  id         Int        @id @default(autoincrement())
+  user       User       @relation(fields: [userId], references: [id])
+  Exercise   Exercise[]
+  userId     Int
+  finishedAt DateTime   @default(now())
+}
+
+model Exercise {
+  id             Int          @id @default(autoincrement())
+  type           ExerciseType @relation(fields: [exerciseTypeId], references: [id])
+  exerciseTypeId Int
+  workout        Workout      @relation(fields: [workoutId], references: [id])
+  workoutId      Int
+  Set            Set[]
+}
+
+model Set {
+  id          Int      @id @default(autoincrement())
+  exercise    Exercise @relation(fields: [exerciseId], references: [id])
+  weight      Int      @default(0)
+  reps        Int      @default(0)
+  isCompleted Boolean  @default(false)
+  exerciseId  Int
 }
