@@ -23,10 +23,6 @@ const Workout: NextPageWithLayout = () => {
     null
   );
 
-  if (!workoutId) {
-    throw Error('No workout ID');
-  }
-
   const handleUpdateWorkout = (updatedExercises: ExerciseData[]) => {
     if (data?.workout) {
       const workoutCopy = updatedWorkout
@@ -66,7 +62,7 @@ const Workout: NextPageWithLayout = () => {
     return <Text>Error loading workout.</Text>;
   }
 
-  if (!data) {
+  if (!data || !workoutId) {
     return <Text>Loading...</Text>;
   }
 

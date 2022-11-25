@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { authOptions } from './auth/[...nextauth]';
+import { authOptions } from '../auth/[...nextauth]';
 import { unstable_getServerSession } from 'next-auth';
-import { httpResponse } from '../../lib/http-responses';
-import prisma from '../../lib/prisma';
+import { httpResponse } from '../../../lib/http-responses';
+import prisma from '../../../lib/prisma';
 
 export interface ExerciseTypesResponse {
   types: {

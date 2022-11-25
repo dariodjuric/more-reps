@@ -1,11 +1,9 @@
 import { Button, Center, VStack } from '@chakra-ui/react';
 import ExerciseListItem from './ExerciseListItem';
-import ExerciseSelectorDrawer from './ExerciseSelectorDrawer';
-import {
-  ExerciseData,
-  ExerciseTypeData,
-  SetData,
-} from '../pages/api/workouts/[workoutId]';
+import ExerciseSelectorDrawer, {
+  ExerciseTypeWithLastSet,
+} from './ExerciseSelectorDrawer';
+import { ExerciseData, SetData } from '../pages/api/workouts/[workoutId]';
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
@@ -27,10 +25,21 @@ export const ExerciseList = ({ initialExercises, onUpdate }: Props) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [exercises, setExercises] = useState(createKeys(initialExercises));
 
-  const handleAddNewExercise = (exerciseType: ExerciseTypeData) => {
+  const handleAddNewExercise = (exerciseType: ExerciseTypeWithLastSet) => {
     const newExercises = [
       ...exercises,
-      { id: null, key: uuid(), type: exerciseType, sets: [] },
+      {
+        id: null,
+        key: uuid(),
+        type: exerciseType,
+        sets: [
+          {
+            id: null,
+            reps: exerciseType?.lastReps || 0,
+            weight: exerciseType?.lastWeight || 0,
+          },
+        ],
+      },
     ];
     setExercises(newExercises);
     setIsDrawerOpen(false);

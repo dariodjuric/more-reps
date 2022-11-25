@@ -1,6 +1,10 @@
 import { Alert, AlertDescription, AlertIcon } from '@chakra-ui/react';
 
-export const ErrorMessage = ({ children }: { children: string }) => {
+interface Props {
+  children: string;
+}
+
+export const ErrorMessage = ({ children }: Props) => {
   return (
     <Alert status="error">
       <AlertIcon />
