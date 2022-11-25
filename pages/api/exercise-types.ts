@@ -12,21 +12,26 @@ export interface ExerciseTypesResponse {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await unstable_getServerSession(req, res, authOptions);
-  if (!session) {
-    return httpResponse(res, 401);
+  try {
+    const session = await unstable_getServerSession(req, res, authOptions);
+    if (!session) {
+      return httpResponse(res, 401);
+    }
+
+    const exerciseTypes = await prisma.exerciseType.findMany();
+    // Sort alphabetically by name
+    exerciseTypes.sort((a, b) => a.name.localeCompare(b.name));
+
+    return res.status(200).json({
+      types: exerciseTypes.map((exerciseType) => ({
+        id: exerciseType.id,
+        name: exerciseType.name,
+      })),
+    } as ExerciseTypesResponse);
+  } catch (e) {
+    console.error(e);
+    return httpResponse(res, 500);
   }
-
-  const exerciseTypes = await prisma.exerciseType.findMany();
-  // Sort alphabetically by name
-  exerciseTypes.sort((a, b) => a.name.localeCompare(b.name));
-
-  return res.status(200).json({
-    types: exerciseTypes.map((exerciseType) => ({
-      id: exerciseType.id,
-      name: exerciseType.name,
-    })),
-  } as ExerciseTypesResponse);
 };
 
 export default handler;

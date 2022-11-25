@@ -1,41 +1,59 @@
 import { NextPageWithLayout } from './_app';
-import { Button, Center, HStack, VStack } from '@chakra-ui/react';
+import { Button, HStack } from '@chakra-ui/react';
 import { ReactElement, useState } from 'react';
 import AuthenticatedLayout from '../components/AuthenticatedLayout';
-import ExerciseBox from '../components/ExerciseBox';
-import ExerciseSelectorDrawer from '../components/ExerciseSelectorDrawer';
+import { ExerciseList } from '../components/ExerciseList';
+import { useRouter } from 'next/router';
+import {
+  ExerciseData,
+  WorkoutData,
+  WorkoutResponse,
+} from './api/workouts/[workoutId]';
+import { useSWRConfig } from 'swr';
+import { fetcher } from '../lib/fetcher';
 
 const PastWorkouts: NextPageWithLayout = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const router = useRouter();
+  const { mutate } = useSWRConfig();
+  const [workout, setWorkout] = useState<WorkoutData>({
+    id: null,
+    exercises: [],
+  });
 
-  // @ts-ignore
+  const handleUpdateWorkout = (exercises: ExerciseData[]) => {
+    const workoutCopy = structuredClone(workout);
+    workoutCopy.exercises = exercises;
+    setWorkout(workoutCopy);
+  };
+
+  const handleRemoveWorkout = async () => {
+    await router.push('/');
+  };
+
+  const handleSaveWorkout = async () => {
+    const response = await mutate<WorkoutResponse>(
+      '/api/workouts',
+      fetcher('/api/workouts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(workout),
+      })
+    );
+    await router.push(`/workouts/${response?.workout.id}`);
+  };
+
   return (
-    <VStack w="full">
-      <ExerciseBox
-        exercise={{
-          type: { name: 'Deadlift' },
-          sets: [
-            { index: 1, previousWeight: 80, previousReps: 8 },
-            { index: 2, previousWeight: 80, previousReps: 8 },
-          ],
-        }}
-        onClickRemove={() => {}}
-      ></ExerciseBox>
-      <Center>
-        <ExerciseSelectorDrawer
-          isShown={isDrawerOpen}
-          onClose={() => setIsDrawerOpen(false)}
-          onSelect={() => setIsDrawerOpen(false)}
-        ></ExerciseSelectorDrawer>
-        <Button onClick={() => setIsDrawerOpen(true)}>Add exercise</Button>
-      </Center>
-
-      <HStack pt="12" w="full" justifyContent="center">
-        <Button colorScheme="red" variant="ghost">
+    <>
+      <ExerciseList initialExercises={[]} onUpdate={handleUpdateWorkout} />
+      <HStack pt="12" w="full" justifyContent="space-between">
+        <Button colorScheme="red" variant="ghost" onClick={handleRemoveWorkout}>
           Remove workout
         </Button>
+        <Button onClick={handleSaveWorkout}>Save workout</Button>
       </HStack>
-    </VStack>
+    </>
   );
 };
 

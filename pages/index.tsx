@@ -4,76 +4,45 @@ import {
   TableContainer,
   Tbody,
   Td,
-  Text,
   Tr,
   VStack,
+  Text,
 } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import AuthenticatedLayout from '../components/AuthenticatedLayout';
+import useSWR from 'swr';
+import { fetcher } from '../lib/fetcher';
+import { WorkoutListItem, WorkoutListResponse } from './api/workouts';
+import { TextLink } from '../components/TextLink';
+import { format } from 'date-fns';
+
+const formatWorkoutTitle = (workout: WorkoutListItem) => {
+  const workoutDate = new Date(workout.finishedAt);
+  return `Workout from ${format(workoutDate, 'PPPP')}`;
+};
 
 const PastWorkouts: NextPageWithLayout = () => {
-  // @ts-ignore
+  const { data } = useSWR<WorkoutListResponse>('/api/workouts/', fetcher);
+
   return (
     <>
       <TableContainer w="full">
         <Table variant="simple">
           <Tbody>
-            <Tr>
-              <Td>
-                <VStack alignItems="flex-start">
-                  <Text as="b">July 17, 2022</Text>
-                  <Text color="gray.500">3 exercises</Text>
-                </VStack>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <VStack alignItems="flex-start">
-                  <Text as="b">July 1, 2022</Text>
-                  <Text color="gray.500">5 exercises</Text>
-                </VStack>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <VStack alignItems="flex-start">
-                  <Text as="b">July 1, 2022</Text>
-                  <Text color="gray.500">5 exercises</Text>
-                </VStack>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <VStack alignItems="flex-start">
-                  <Text as="b">July 1, 2022</Text>
-                  <Text color="gray.500">5 exercises</Text>
-                </VStack>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <VStack alignItems="flex-start">
-                  <Text as="b">July 1, 2022</Text>
-                  <Text color="gray.500">5 exercises</Text>
-                </VStack>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <VStack alignItems="flex-start">
-                  <Text as="b">July 1, 2022</Text>
-                  <Text color="gray.500">5 exercises</Text>
-                </VStack>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <VStack alignItems="flex-start">
-                  <Text as="b">July 1, 2022</Text>
-                  <Text color="gray.500">5 exercises</Text>
-                </VStack>
-              </Td>
-            </Tr>
+            {data?.workouts.map((workout) => (
+              <Tr key={workout.id}>
+                <Td>
+                  <VStack alignItems="flex-start">
+                    <TextLink href={`/workouts/${workout.id}`}>
+                      <Text>{formatWorkoutTitle(workout)}</Text>
+                    </TextLink>
+                    <Text color="gray.500">
+                      {workout.exerciseCount} exercises
+                    </Text>
+                  </VStack>
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>

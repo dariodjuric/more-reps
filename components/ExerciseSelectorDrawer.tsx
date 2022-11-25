@@ -14,11 +14,12 @@ import useSWR from 'swr';
 import { fetcher } from '../lib/fetcher';
 import { ExerciseTypesResponse } from '../pages/api/exercise-types';
 import { TextLink } from './TextLink';
+import { ExerciseTypeData } from '../pages/api/workouts/[workoutId]';
 
 interface Props {
   isShown: boolean;
   onClose: () => void;
-  onSelect: (exerciseTypeId: number) => void;
+  onSelect: (exerciseType: ExerciseTypeData) => void;
 }
 
 const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
@@ -37,9 +38,13 @@ const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
           {!data && <Text>Loading...</Text>}
           {data && (
             <Stack divider={<StackDivider />} spacing="4">
-              {data.types.map(({ id, name }) => (
-                <TextLink key={id} color="black" onClick={() => onSelect(id)}>
-                  {name}
+              {data.types.map((exerciseType) => (
+                <TextLink
+                  key={exerciseType.id}
+                  color="black"
+                  onClick={() => onSelect(exerciseType)}
+                >
+                  {exerciseType.name}
                 </TextLink>
               ))}
             </Stack>
