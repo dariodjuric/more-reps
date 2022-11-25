@@ -12,7 +12,7 @@ processes = []
 [env]
   PORT = "8080"
   DATABASE_PROVIDER = "postgresql"
-  NEXTAUTH_URL = "https://more-reps.fly.dev/"
+  NEXTAUTH_URL = "https://morereps.app/"
 
 [deploy]
   release_command = "sh scripts/release.sh"
