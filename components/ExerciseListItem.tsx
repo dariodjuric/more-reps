@@ -87,15 +87,22 @@ const ExerciseListItem = ({
           Remove exercise
         </Button>
       </HStack>
-      <Box w="full" border="1px" borderColor="gray.200" borderRadius="12px">
+      <Box
+        w="full"
+        border="1px"
+        borderColor="gray.200"
+        borderRadius="12px"
+        pl={2}
+        pr={2}
+      >
         <TableContainer>
-          <Table variant="simple">
+          <Table size="sm" variant="simple">
             <Thead>
               <Tr>
-                <Th>Set</Th>
-                <Th>Weight</Th>
-                <Th>Reps</Th>
-                <Th></Th>
+                <Th p={3}>Set</Th>
+                <Th p={3}>Weight</Th>
+                <Th p={3}>Reps</Th>
+                <Th p={3}></Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -135,6 +142,7 @@ const ExerciseListItem = ({
                       colorScheme="red"
                       aria-label="Remove set"
                       variant="outline"
+                      size="sm"
                       onClick={() => handleRemoveSet(set.key)}
                       icon={<DeleteIcon />}
                     />
@@ -144,7 +152,7 @@ const ExerciseListItem = ({
             </Tbody>
             <Tfoot>
               <Tr>
-                <Th colSpan={4}>
+                <Th colSpan={4} p={3}>
                   <Center>
                     <Button onClick={handleAddNewSet} variant="outline">
                       Add set
