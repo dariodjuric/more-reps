@@ -33,8 +33,8 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
   }
 
   return (
-    <VStack h="full">
-      <Box flexGrow="1" overflowY="auto" w="100vw">
+    <VStack h="100vh">
+      <Box h="calc(100vh - 60px)" overflowY="auto" w="100vw">
         <Container>
           <VStack w="full" mb="25">
             <NextLink legacyBehavior href="/" passHref>
@@ -50,7 +50,7 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
       </Box>
 
       <HStack
-        height="16"
+        height="60px"
         width="full"
         justifyContent="center"
         spacing="30"

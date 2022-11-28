@@ -65,7 +65,7 @@ export const ExerciseList = ({ initialExercises, onUpdate }: Props) => {
   };
 
   return (
-    <VStack w="full">
+    <VStack w="full" gap={5}>
       {exercises.map((exercise) => (
         <ExerciseListItem
           key={exercise.key}
