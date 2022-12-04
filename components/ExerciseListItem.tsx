@@ -18,18 +18,18 @@ import {
 } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-import { ExerciseData, SetData } from '../pages/api/workouts/[workoutId]';
 import { v4 as uuid } from 'uuid';
+import { ExercisePayload, SetPayload } from '../pages/api/workouts/[workoutId]';
 
 interface ExerciseBoxProps {
-  initialExercise: ExerciseData;
+  initialExercise: ExercisePayload;
   onClickRemove: () => void;
-  onUpdate: (sets: SetData[]) => void;
+  onUpdate: (sets: SetPayload[]) => void;
 }
 
-type SetWithKey = SetData & { key: string };
+type SetWithKey = SetPayload & { key: string };
 
-const createSetsForState = (sets: SetData[]): SetWithKey[] => {
+const createSetsForState = (sets: SetPayload[]): SetWithKey[] => {
   if (sets.length === 0) {
     return [{ id: null, key: uuid(), reps: 0, weight: 0 }];
   } else {
@@ -112,7 +112,6 @@ const ExerciseListItem = ({
                   <Td>
                     <Input
                       type="number"
-                      placeholder={`${set.previousWeight || ''}`}
                       defaultValue={set.weight}
                       onChange={(e) =>
                         handleSetOrRepUpdate(
@@ -126,7 +125,6 @@ const ExerciseListItem = ({
                   <Td>
                     <Input
                       type="number"
-                      placeholder={`${set.previousReps || ''}`}
                       defaultValue={set.reps}
                       onChange={(e) =>
                         handleSetOrRepUpdate(

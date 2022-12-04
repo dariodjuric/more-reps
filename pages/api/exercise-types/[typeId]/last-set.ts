@@ -18,6 +18,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const typeId = Number(req.query.typeId);
 
+    if (!typeId) {
+      return httpResponse(res, 400);
+    }
+
     const latestWorkout = await prisma.workout.findFirst({
       orderBy: {
         finishedAt: 'desc',

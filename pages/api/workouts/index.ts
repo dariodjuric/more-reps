@@ -4,7 +4,7 @@ import { authOptions } from '../auth/[...nextauth]';
 import { httpResponse } from '../../../lib/http-responses';
 import prisma from '../../../lib/prisma';
 import { User } from '@prisma/client';
-import { WorkoutData, WorkoutResponse } from './[workoutId]';
+import { WorkoutResponse, workoutSchema } from './[workoutId]';
 
 export const DEFAULT_WORKOUT_SELECTION = {
   id: true,
@@ -68,7 +68,12 @@ const handlePost = async (
   res: NextApiResponse,
   user: User
 ) => {
-  const requestWorkout = req.body as WorkoutData;
+  const bodyParse = workoutSchema.safeParse(req.body);
+  if (!bodyParse.success) {
+    return httpResponse(res, 400);
+  }
+
+  const requestWorkout = bodyParse.data;
 
   const databaseWorkout = await prisma.workout.create({
     data: {

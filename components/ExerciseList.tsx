@@ -3,18 +3,18 @@ import ExerciseListItem from './ExerciseListItem';
 import ExerciseSelectorDrawer, {
   ExerciseTypeWithLastSet,
 } from './ExerciseSelectorDrawer';
-import { ExerciseData, SetData } from '../pages/api/workouts/[workoutId]';
+import { ExercisePayload, SetPayload } from '../pages/api/workouts/[workoutId]';
 import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 interface Props {
-  initialExercises: ExerciseData[];
-  onUpdate: (exercises: ExerciseData[]) => void;
+  initialExercises: ExercisePayload[];
+  onUpdate: (exercises: ExercisePayload[]) => void;
 }
 
-type ExerciseWithKey = ExerciseData & { key: string };
+type ExerciseWithKey = ExercisePayload & { key: string };
 
-const createKeys = (exercises: ExerciseData[]): ExerciseWithKey[] => {
+const createKeys = (exercises: ExercisePayload[]): ExerciseWithKey[] => {
   return structuredClone(exercises).map((exercise) => ({
     ...exercise,
     key: String(exercise.id),
@@ -52,7 +52,7 @@ export const ExerciseList = ({ initialExercises, onUpdate }: Props) => {
     onUpdate(newExercises);
   };
 
-  const handleUpdate = (exerciseKey: string, updatedSets: SetData[]) => {
+  const handleUpdate = (exerciseKey: string, updatedSets: SetPayload[]) => {
     const exercisesCopy = exercises.map((exercise) => ({ ...exercise }));
     const exerciseToUpdate = exercisesCopy.find(
       (exercise) => exercise.key === exerciseKey

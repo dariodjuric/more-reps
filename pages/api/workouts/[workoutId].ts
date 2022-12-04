@@ -5,33 +5,37 @@ import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
 import { User } from '@prisma/client';
 import { DEFAULT_WORKOUT_SELECTION } from './index';
+import { z } from 'zod';
 
-export interface ExerciseTypeData {
-  id: number;
-  name: string;
-}
+const setSchema = z.object({
+  id: z.number().int().nullable(),
+  weight: z.number().int(),
+  reps: z.number().int(),
+});
 
-export interface SetData {
-  id: number | null;
-  weight: number;
-  reps: number;
-  previousWeight?: number;
-  previousReps?: number;
-}
+const exerciseTypeSchema = z.object({
+  id: z.number().int(),
+  name: z.string(),
+});
 
-export interface ExerciseData {
-  id: number | null;
-  type: ExerciseTypeData;
-  sets: SetData[];
-}
+const exerciseSchema = z.object({
+  id: z.number().int().nullable(),
+  type: exerciseTypeSchema,
+  sets: setSchema.array(),
+});
 
-export interface WorkoutData {
-  id: number | null;
-  exercises: ExerciseData[];
-}
+export const workoutSchema = z.object({
+  id: z.number().int().nullable(),
+  exercises: exerciseSchema.array(),
+});
+
+export type WorkoutPayload = z.infer<typeof workoutSchema>;
+export type ExercisePayload = z.infer<typeof exerciseSchema>;
+export type ExerciseTypePayload = z.infer<typeof exerciseTypeSchema>;
+export type SetPayload = z.infer<typeof setSchema>;
 
 export interface WorkoutResponse {
-  workout: WorkoutData;
+  workout: WorkoutPayload;
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -112,12 +116,16 @@ const handlePut = async (
 ) => {
   // Make sure that the workflow is accessible by the user
   let databaseWorkout = await findWorkoutForResponse(workoutId, user);
-
   if (!databaseWorkout) {
     return httpResponse(res, 404);
   }
 
-  const requestWorkout = req.body as WorkoutData;
+  const bodyParse = workoutSchema.safeParse(req.body);
+  if (!bodyParse.success) {
+    return httpResponse(res, 400);
+  }
+
+  const requestWorkout = bodyParse.data;
 
   const { deletedExerciseIds, exerciseIdsToDeletedSetIds } =
     getDeletedExercisesAndSets(requestWorkout, databaseWorkout);
@@ -186,8 +194,8 @@ const handlePut = async (
 };
 
 const getDeletedExercisesAndSets = (
-  requestWorkout: WorkoutData,
-  databaseWorkout: WorkoutData
+  requestWorkout: WorkoutPayload,
+  databaseWorkout: WorkoutPayload
 ) => {
   const exerciseIdsInRequest = new Set<number>();
   const setIdsInRequest = new Set<number>();

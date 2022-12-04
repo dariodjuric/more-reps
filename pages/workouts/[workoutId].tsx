@@ -5,8 +5,8 @@ import AuthenticatedLayout from '../../components/AuthenticatedLayout';
 import useSWR from 'swr';
 import { fetcher } from '../../lib/fetcher';
 import {
-  ExerciseData,
-  WorkoutData,
+  ExercisePayload,
+  WorkoutPayload,
   WorkoutResponse,
 } from '../api/workouts/[workoutId]';
 import { useRouter } from 'next/router';
@@ -19,11 +19,11 @@ const Workout: NextPageWithLayout = () => {
     `/api/workouts/${workoutId}`,
     fetcher
   );
-  const [updatedWorkout, setUpdatedWorkout] = useState<WorkoutData | null>(
+  const [updatedWorkout, setUpdatedWorkout] = useState<WorkoutPayload | null>(
     null
   );
 
-  const handleUpdateWorkout = (updatedExercises: ExerciseData[]) => {
+  const handleUpdateWorkout = (updatedExercises: ExercisePayload[]) => {
     if (data?.workout) {
       const workoutCopy = updatedWorkout
         ? structuredClone(updatedWorkout)

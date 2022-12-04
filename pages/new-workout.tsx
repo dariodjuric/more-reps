@@ -5,8 +5,8 @@ import AuthenticatedLayout from '../components/AuthenticatedLayout';
 import { ExerciseList } from '../components/ExerciseList';
 import { useRouter } from 'next/router';
 import {
-  ExerciseData,
-  WorkoutData,
+  ExercisePayload,
+  WorkoutPayload,
   WorkoutResponse,
 } from './api/workouts/[workoutId]';
 import { useSWRConfig } from 'swr';
@@ -15,12 +15,12 @@ import { fetcher } from '../lib/fetcher';
 const PastWorkouts: NextPageWithLayout = () => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
-  const [workout, setWorkout] = useState<WorkoutData>({
+  const [workout, setWorkout] = useState<WorkoutPayload>({
     id: null,
     exercises: [],
   });
 
-  const handleUpdateWorkout = (exercises: ExerciseData[]) => {
+  const handleUpdateWorkout = (exercises: ExercisePayload[]) => {
     const workoutCopy = structuredClone(workout);
     workoutCopy.exercises = exercises;
     setWorkout(workoutCopy);

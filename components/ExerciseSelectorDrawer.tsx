@@ -13,11 +13,11 @@ import useSWR from 'swr';
 import { fetcher } from '../lib/fetcher';
 import { ExerciseTypesResponse } from '../pages/api/exercise-types';
 import { TextLink } from './TextLink';
-import { ExerciseTypeData } from '../pages/api/workouts/[workoutId]';
 import { LoadingMessage } from './LoadingMessage';
 import { useState } from 'react';
+import { ExerciseTypePayload } from '../pages/api/workouts/[workoutId]';
 
-export type ExerciseTypeWithLastSet = ExerciseTypeData & {
+export type ExerciseTypeWithLastSet = ExerciseTypePayload & {
   lastReps: number | null;
   lastWeight: number | null;
 };
@@ -35,7 +35,7 @@ const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
   );
   const [isSelectionError, setIsSelectionError] = useState(false);
 
-  const handleSelect = async (exerciseType: ExerciseTypeData) => {
+  const handleSelect = async (exerciseType: ExerciseTypePayload) => {
     try {
       const lastSet = await fetcher(
         `/api/exercise-types/${exerciseType.id}/last-set`
