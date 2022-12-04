@@ -18,7 +18,7 @@ import { format } from 'date-fns';
 
 const formatWorkoutTitle = (workout: WorkoutListItem) => {
   const workoutDate = new Date(workout.finishedAt);
-  return `Workout from ${format(workoutDate, 'PPPP')}`;
+  return `Workout on ${format(workoutDate, 'PP')}`;
 };
 
 const PastWorkouts: NextPageWithLayout = () => {
