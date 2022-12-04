@@ -113,7 +113,6 @@ const ExerciseListItem = ({
                     <Input
                       type="number"
                       defaultValue={set.weight}
-                      onFocus={(e) => e.currentTarget.select()}
                       onChange={(e) =>
                         handleSetOrRepUpdate(
                           set.key,
@@ -127,7 +126,6 @@ const ExerciseListItem = ({
                     <Input
                       type="number"
                       defaultValue={set.reps}
-                      onFocus={(e) => e.currentTarget.select()}
                       onChange={(e) =>
                         handleSetOrRepUpdate(
                           set.key,
