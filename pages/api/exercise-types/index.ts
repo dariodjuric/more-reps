@@ -3,6 +3,7 @@ import { authOptions } from '../auth/[...nextauth]';
 import { unstable_getServerSession } from 'next-auth';
 import { httpResponse } from '../../../lib/http-responses';
 import prisma from '../../../lib/prisma';
+import { ExerciseType } from '@prisma/client';
 
 export interface ExerciseTypesResponse {
   types: {
@@ -20,7 +21,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const exerciseTypes = await prisma.exerciseType.findMany();
     // Sort alphabetically by name
-    exerciseTypes.sort((a, b) => a.name.localeCompare(b.name));
+    exerciseTypes.sort((a: ExerciseType, b: ExerciseType) =>
+      a.name.localeCompare(b.name)
+    );
 
     return res.status(200).json({
       types: exerciseTypes.map((exerciseType) => ({
