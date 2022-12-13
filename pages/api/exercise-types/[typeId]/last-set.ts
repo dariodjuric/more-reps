@@ -12,7 +12,7 @@ export interface LastSetResponse {
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const session = await unstable_getServerSession(req, res, authOptions);
-    if (!session) {
+    if (!session || !session.user?.email) {
       return httpResponse(res, 401);
     }
 
@@ -22,27 +22,32 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return httpResponse(res, 400);
     }
 
-    const latestWorkout = await prisma.workout.findFirst({
-      orderBy: {
-        finishedAt: 'desc',
-      },
+    const userEmail = session.user.email;
+    const databaseUser = await prisma.user.findFirstOrThrow({
+      where: { email: userEmail },
     });
 
-    let latestSet = null;
-    if (latestWorkout) {
-      latestSet = await prisma.set.findFirst({
-        select: {
-          reps: true,
-          weight: true,
-        },
-        where: {
-          exercise: {
-            exerciseTypeId: typeId,
-            workoutId: latestWorkout.id,
+    const latestSet = await prisma.set.findFirst({
+      select: {
+        reps: true,
+        weight: true,
+      },
+      where: {
+        exercise: {
+          exerciseTypeId: typeId,
+          workout: {
+            user: databaseUser,
           },
         },
-      });
-    }
+      },
+      orderBy: {
+        exercise: {
+          workout: {
+            finishedAt: 'desc',
+          },
+        },
+      },
+    });
 
     return res.status(200).json({
       reps: latestSet?.reps || null,
