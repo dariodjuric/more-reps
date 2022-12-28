@@ -41,11 +41,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       },
       orderBy: {
-        exercise: {
-          workout: {
-            finishedAt: 'desc',
-          },
-        },
+        id: 'desc',
       },
     });
 
