@@ -33,7 +33,7 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
 
   return (
     <>
-      <Container pb="100px">
+      <Container pb="100px" mt="15px">
         <VStack w="full" mb="25">
           <NextLink legacyBehavior href="/" passHref>
             <Link>
