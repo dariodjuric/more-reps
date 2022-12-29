@@ -1,5 +1,4 @@
 import {
-  Box,
   Container,
   Heading,
   HStack,
@@ -33,36 +32,33 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
   }
 
   return (
-    <VStack h="100dvh">
-      <Box h="calc(100dvh - 60px)" overflowY="auto" w="100vw">
-        <Container>
-          <VStack w="full" mb="25">
-            <NextLink legacyBehavior href="/" passHref>
-              <Link>
-                <Image boxSize="90" src="/more-reps-logo.svg" alt="More Reps" />
-              </Link>
-            </NextLink>
+    <>
+      <Container pb="100px">
+        <VStack w="full" mb="25">
+          <NextLink legacyBehavior href="/" passHref>
+            <Link>
+              <Image boxSize="90" src="/more-reps-logo.svg" alt="More Reps" />
+            </Link>
+          </NextLink>
 
-            <Heading as="h1">{title}</Heading>
-          </VStack>
-          <VStack>{children}</VStack>
-        </Container>
-      </Box>
+          <Heading as="h1">{title}</Heading>
+        </VStack>
+        <VStack>{children}</VStack>
+      </Container>
 
       <HStack
+        position="fixed"
+        bottom="0"
         height="60px"
         width="full"
         justifyContent="center"
         spacing="30"
         borderTop="1px"
         borderColor="gray.200"
+        padding={[10, 5]}
+        backgroundColor="white"
       >
         <MenuOption label="Home" linkTo="/" icon="home" />
-        {/*<MenuOption*/}
-        {/*  label="My templates"*/}
-        {/*  linkTo="/past-templates"*/}
-        {/*  icon="templates"*/}
-        {/*/>*/}
         <MenuOption
           label="New workout"
           linkTo="/new-workout"
@@ -70,7 +66,7 @@ const AuthenticatedLayout = ({ children, title }: Props) => {
         />
         <MenuOption label="My profile" linkTo="/my-profile" icon="my-profile" />
       </HStack>
-    </VStack>
+    </>
   );
 };
 
