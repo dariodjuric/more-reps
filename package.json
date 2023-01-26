@@ -19,6 +19,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@prisma/client": "^4.6.1",
+    "@sentry/nextjs": "^7.33.0",
     "bcrypt": "^5.1.0",
     "date-fns": "^2.29.3",
     "framer-motion": "^6.5.1",
