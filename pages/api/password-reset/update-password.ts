@@ -6,6 +6,7 @@ import { PasswordResetToken } from '@prisma/client';
 import { addHours, isBefore } from 'date-fns';
 import bcrypt from 'bcrypt';
 import { BCRYPT_SALT } from '../../../lib/environment';
+import * as Sentry from '@sentry/nextjs';
 
 const RequestSchema = z.object({
   userId: z.number(),
@@ -66,6 +67,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return httpResponse(res, 500, 'Invalid token');
     }
   } catch (e) {
+    Sentry.captureException(e);
     console.error(e);
     return httpResponse(res, 500);
   }

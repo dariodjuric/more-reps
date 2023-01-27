@@ -11,6 +11,7 @@ import { FormEvent, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { ErrorMessage } from '../ErrorMessage';
 import { TextLink } from '../TextLink';
+import * as Sentry from '@sentry/nextjs';
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -24,6 +25,7 @@ const SignInForm = () => {
       await signIn('credentials', { email, password });
       setIsError(false);
     } catch (error) {
+      Sentry.captureException(error);
       console.error(error);
       setIsError(true);
     }

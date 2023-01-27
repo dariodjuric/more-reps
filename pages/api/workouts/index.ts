@@ -5,6 +5,7 @@ import { httpResponse } from '../../../lib/http-responses';
 import prisma from '../../../lib/prisma';
 import { User } from '@prisma/client';
 import { WorkoutResponse, workoutSchema } from './[workoutId]';
+import * as Sentry from '@sentry/nextjs';
 
 export const DEFAULT_WORKOUT_SELECTION = {
   id: true,
@@ -58,6 +59,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return httpResponse(res, 405);
     }
   } catch (e) {
+    Sentry.captureException(e);
     console.error(e);
     return httpResponse(res, 500);
   }

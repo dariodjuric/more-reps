@@ -9,6 +9,7 @@ import {
   BCRYPT_SALT,
   SMTP2GO_API_KEY,
 } from '../../../lib/environment';
+import * as Sentry from '@sentry/nextjs';
 
 const RequestSchema = z.object({
   email: z.string().email(),
@@ -34,6 +35,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return httpResponse(res, 200);
   } catch (e: any) {
+    Sentry.captureException(e);
     console.error(e);
     return httpResponse(res, 500);
   }

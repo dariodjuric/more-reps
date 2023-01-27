@@ -3,6 +3,7 @@ import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from '../../auth/[...nextauth]';
 import { httpResponse } from '../../../../lib/http-responses';
 import prisma from '../../../../lib/prisma';
+import * as Sentry from '@sentry/nextjs';
 
 export interface LastSetResponse {
   reps: number | null;
@@ -50,6 +51,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       weight: latestSet?.weight || null,
     } as LastSetResponse);
   } catch (e) {
+    Sentry.captureException(e);
     console.error(e);
     return httpResponse(res, 500);
   }

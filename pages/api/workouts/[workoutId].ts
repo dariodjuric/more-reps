@@ -6,6 +6,7 @@ import { authOptions } from '../auth/[...nextauth]';
 import { User } from '@prisma/client';
 import { DEFAULT_WORKOUT_SELECTION } from './index';
 import { z } from 'zod';
+import * as Sentry from '@sentry/nextjs';
 
 const setSchema = z.object({
   id: z.number().int().nullable(),
@@ -61,6 +62,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return httpResponse(res, 405);
     }
   } catch (e) {
+    Sentry.captureException(e);
     console.error(e);
     return httpResponse(res, 500);
   }

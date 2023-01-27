@@ -14,6 +14,7 @@ import { FormEvent, ReactElement, useState } from 'react';
 import UnauthenticatedLayout from '../../components/UnauthenticatedLayout';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { TextLink } from '../../components/TextLink';
+import * as Sentry from '@sentry/nextjs';
 
 const ResetPassword: NextPageWithLayout = () => {
   const [email, setEmail] = useState('');
@@ -41,6 +42,7 @@ const ResetPassword: NextPageWithLayout = () => {
         setIsError(true);
       }
     } catch (e) {
+      Sentry.captureException(e);
       console.error(e);
       setIsError(true);
     }

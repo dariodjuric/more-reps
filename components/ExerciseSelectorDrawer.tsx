@@ -16,6 +16,7 @@ import { TextLink } from './TextLink';
 import { LoadingMessage } from './LoadingMessage';
 import { useState } from 'react';
 import { ExerciseTypePayload } from '../pages/api/workouts/[workoutId]';
+import * as Sentry from '@sentry/nextjs';
 
 export type ExerciseTypeWithLastSet = ExerciseTypePayload & {
   lastReps: number | null;
@@ -47,6 +48,7 @@ const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
       });
       setIsSelectionError(false);
     } catch (e) {
+      Sentry.captureException(e);
       console.error(e);
       setIsSelectionError(true);
     }

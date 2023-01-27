@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import prisma from '../../lib/prisma';
 import { httpResponse } from '../../lib/http-responses';
 import { BCRYPT_SALT } from '../../lib/environment';
+import * as Sentry from '@sentry/nextjs';
 
 const RequestSchema = z.object({
   email: z.string().email(),
@@ -39,6 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
   } catch (e: any) {
+    Sentry.captureException(e);
     let message = 'Error adding user';
     if (e?.message?.includes('Unique constraint failed')) {
       message = 'User already exists';

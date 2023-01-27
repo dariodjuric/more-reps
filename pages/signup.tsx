@@ -14,6 +14,7 @@ import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
 import { useRouter } from 'next/router';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { TextLink } from '../components/TextLink';
+import * as Sentry from '@sentry/nextjs';
 
 const SignUp: NextPageWithLayout = () => {
   const [email, setEmail] = useState('');
@@ -39,6 +40,7 @@ const SignUp: NextPageWithLayout = () => {
         setIsError(true);
       }
     } catch (e) {
+      Sentry.captureException(e);
       console.error(e);
       setIsError(true);
     }

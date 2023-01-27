@@ -4,6 +4,7 @@ import { unstable_getServerSession } from 'next-auth';
 import { httpResponse } from '../../../lib/http-responses';
 import prisma from '../../../lib/prisma';
 import { ExerciseType } from '@prisma/client';
+import * as Sentry from '@sentry/nextjs';
 
 export interface ExerciseTypesResponse {
   types: {
@@ -32,6 +33,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       })),
     } as ExerciseTypesResponse);
   } catch (e) {
+    Sentry.captureException(e);
     console.error(e);
     return httpResponse(res, 500);
   }
