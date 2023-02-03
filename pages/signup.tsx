@@ -11,7 +11,6 @@ import {
 } from '@chakra-ui/react';
 import { FormEvent, ReactElement, useState } from 'react';
 import UnauthenticatedLayout from '../components/UnauthenticatedLayout';
-import { useRouter } from 'next/router';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { TextLink } from '../components/TextLink';
 import * as Sentry from '@sentry/nextjs';
@@ -20,7 +19,7 @@ const SignUp: NextPageWithLayout = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
-  const router = useRouter();
+  const [isConfirmation, setConfirmation] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +33,7 @@ const SignUp: NextPageWithLayout = () => {
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
-        await router.push('/signin');
+        setConfirmation(true);
         setIsError(false);
       } else {
         setIsError(true);
@@ -45,6 +44,18 @@ const SignUp: NextPageWithLayout = () => {
       setIsError(true);
     }
   };
+
+  if (isConfirmation) {
+    return (
+      <Stack>
+        <Text>
+          You have successfully created a new account with the e-mail{' '}
+          <Text as="b">{email}</Text>. You may now{' '}
+          <TextLink href="/">sign in</TextLink>.
+        </Text>
+      </Stack>
+    );
+  }
 
   return (
     <Stack w="full" spacing={6}>
