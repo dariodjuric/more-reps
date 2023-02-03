@@ -19,6 +19,7 @@ const PastWorkouts: NextPageWithLayout = () => {
     id: null,
     exercises: [],
   });
+  const [isSaving, setSaving] = useState(false);
 
   const handleUpdateWorkout = (exercises: ExercisePayload[]) => {
     const workoutCopy = structuredClone(workout);
@@ -31,6 +32,7 @@ const PastWorkouts: NextPageWithLayout = () => {
   };
 
   const handleSaveWorkout = async () => {
+    setSaving(true);
     const response = await mutate<WorkoutResponse>(
       '/api/workouts',
       fetcher('/api/workouts', {
@@ -41,6 +43,7 @@ const PastWorkouts: NextPageWithLayout = () => {
         body: JSON.stringify(workout),
       })
     );
+    setSaving(false);
     await router.push(`/workouts/${response?.workout.id}`);
   };
 
@@ -51,7 +54,9 @@ const PastWorkouts: NextPageWithLayout = () => {
         <Button colorScheme="red" variant="ghost" onClick={handleRemoveWorkout}>
           Remove workout
         </Button>
-        <Button onClick={handleSaveWorkout}>Save workout</Button>
+        <Button disabled={isSaving} onClick={handleSaveWorkout}>
+          Save workout
+        </Button>
       </HStack>
     </>
   );

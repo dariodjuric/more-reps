@@ -22,6 +22,7 @@ const Workout: NextPageWithLayout = () => {
   const [updatedWorkout, setUpdatedWorkout] = useState<WorkoutPayload | null>(
     null
   );
+  const [isSaving, setSaving] = useState(false);
 
   const handleUpdateWorkout = (updatedExercises: ExercisePayload[]) => {
     if (data?.workout) {
@@ -36,6 +37,7 @@ const Workout: NextPageWithLayout = () => {
 
   const handleSaveWorkout = async () => {
     if (updatedWorkout) {
+      setSaving(true);
       await mutate(
         fetcher(`/api/workouts/${workoutId}`, {
           method: 'PUT',
@@ -45,6 +47,7 @@ const Workout: NextPageWithLayout = () => {
           body: JSON.stringify(updatedWorkout),
         })
       );
+      setSaving(false);
     }
   };
 
@@ -76,7 +79,9 @@ const Workout: NextPageWithLayout = () => {
         <Button colorScheme="red" variant="ghost" onClick={handleRemoveWorkout}>
           Remove workout
         </Button>
-        <Button onClick={handleSaveWorkout}>Save workout</Button>
+        <Button disabled={isSaving} onClick={handleSaveWorkout}>
+          Save workout
+        </Button>
       </HStack>
     </>
   );
