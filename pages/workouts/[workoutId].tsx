@@ -75,11 +75,14 @@ const Workout: NextPageWithLayout = () => {
         initialExercises={data.workout.exercises}
         onUpdate={handleUpdateWorkout}
       />
-      <HStack pt="12" w="full" justifyContent="space-between">
+      <HStack w="full" justifyContent="space-between">
         <Button colorScheme="red" variant="ghost" onClick={handleRemoveWorkout}>
           Remove workout
         </Button>
-        <Button disabled={isSaving} onClick={handleSaveWorkout}>
+        <Button
+          disabled={isSaving || updatedWorkout === null}
+          onClick={handleSaveWorkout}
+        >
           Save workout
         </Button>
       </HStack>
