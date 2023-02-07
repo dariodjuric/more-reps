@@ -23,8 +23,10 @@ const Workout: NextPageWithLayout = () => {
     null
   );
   const [isSaving, setSaving] = useState(false);
+  const [hasPendingChanges, setPendingChanges] = useState(false);
 
   const handleUpdateWorkout = (updatedExercises: ExercisePayload[]) => {
+    setPendingChanges(true);
     if (data?.workout) {
       const workoutCopy = updatedWorkout
         ? structuredClone(updatedWorkout)
@@ -47,6 +49,7 @@ const Workout: NextPageWithLayout = () => {
           body: JSON.stringify(updatedWorkout),
         })
       );
+      setPendingChanges(false);
       setSaving(false);
     }
   };
@@ -80,7 +83,7 @@ const Workout: NextPageWithLayout = () => {
           Remove workout
         </Button>
         <Button
-          disabled={isSaving || updatedWorkout === null}
+          disabled={isSaving || !hasPendingChanges}
           onClick={handleSaveWorkout}
         >
           Save workout
