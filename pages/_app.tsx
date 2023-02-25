@@ -31,7 +31,12 @@ function MyApp({
           }}
         ></SWRConfig>
         <Head>
-          <title>More Reps</title>
+          <title>More Reps - Free fitness tracker</title>
+          <meta name="robots" content="follow, index" />
+          <meta
+            name="description"
+            content="Simple fitness tracker that is completely free to use."
+          />
         </Head>
         {getLayout(<Component {...pageProps} />)}
       </SessionProvider>
