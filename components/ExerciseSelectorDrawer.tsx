@@ -13,7 +13,7 @@ import useSWR from 'swr';
 import { fetcher } from '../lib/fetcher';
 import { ExerciseTypesResponse } from '../pages/api/exercise-types';
 import { TextLink } from './TextLink';
-import { LoadingMessage } from './LoadingMessage';
+import { CenteredMessage } from './CenteredMessage';
 import { useState } from 'react';
 import { ExerciseTypePayload } from '../pages/api/workouts/[workoutId]';
 import * as Sentry from '@sentry/nextjs';
@@ -35,8 +35,10 @@ const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
     fetcher
   );
   const [isSelectionError, setIsSelectionError] = useState(false);
+  const [isSelecting, setSelecting] = useState(false);
 
   const handleSelect = async (exerciseType: ExerciseTypePayload) => {
+    setSelecting(true);
     try {
       const lastSet = await fetcher(
         `/api/exercise-types/${exerciseType.id}/last-set`
@@ -52,6 +54,7 @@ const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
       console.error(e);
       setIsSelectionError(true);
     }
+    setSelecting(false);
   };
 
   return (
@@ -61,8 +64,13 @@ const ExerciseSelectorDrawer = ({ isShown, onClose, onSelect }: Props) => {
         <DrawerHeader>Select your exercise</DrawerHeader>
 
         <DrawerBody>
-          {!data && <LoadingMessage>Loading exercises</LoadingMessage>}
-          {data && (
+          {isSelectionError ? (
+            <CenteredMessage>Error selecting exercise</CenteredMessage>
+          ) : isSelecting ? (
+            <CenteredMessage>Selecting exercise...</CenteredMessage>
+          ) : !data ? (
+            <CenteredMessage>Loading exercises...</CenteredMessage>
+          ) : (
             <Stack divider={<StackDivider />} spacing="4">
               {data.types.map((exerciseType) => (
                 <TextLink

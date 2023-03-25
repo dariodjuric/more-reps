@@ -83,7 +83,8 @@ const Workout: NextPageWithLayout = () => {
           Remove workout
         </Button>
         <Button
-          disabled={isSaving || !hasPendingChanges}
+          isLoading={isSaving}
+          disabled={!hasPendingChanges}
           onClick={handleSaveWorkout}
         >
           Save workout
