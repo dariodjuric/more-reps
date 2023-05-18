@@ -106,6 +106,7 @@ const handleGet = async (res: NextApiResponse, user: User) => {
     orderBy: {
       id: 'desc',
     },
+    take: 10,
     include: {
       _count: {
         select: { exercises: true },
