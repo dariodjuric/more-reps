@@ -3,6 +3,9 @@
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 const { withSentryConfig } = require('@sentry/nextjs');
+const withPWA = require('next-pwa')({
+  dest: 'public',
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,10 +13,8 @@ const nextConfig = {
   swcMinify: true,
 };
 
-module.exports = nextConfig;
-
 module.exports = withSentryConfig(
-  module.exports,
+  withPWA(nextConfig),
   { silent: true },
   { hideSourcemaps: false }
 );
